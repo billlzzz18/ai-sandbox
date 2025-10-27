@@ -1,0 +1,7 @@
+{ "type":"object","required":["layout","framework","axes","quadrants","cards","ui"],
+  "properties":{
+    "layout":{"const":"quadrant"},"framework":{"type":"string"},
+    "axes":{"type":"object"},"quadrants":{"type":"object"},
+    "cards":{"type":"array","items":{"type":"object"}},"ui":{"type":"object"},
+    "meta":{"type":"object"}}
+}

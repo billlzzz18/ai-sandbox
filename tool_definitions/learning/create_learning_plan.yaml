@@ -1,0 +1,12 @@
+name: "create_learning_plan"
+version: "1.0.0"
+description: "สร้างแผนการเรียนรู้ตามเป้าหมายของผู้เรียน"
+parameters:
+  - name: "topic"
+    type: "string"
+    description: "หัวข้อที่ต้องการเรียน"
+    required: true
+  - name: "level"
+    type: "string"
+    description: "ระดับความรู้ปัจจุบันของผู้เรียน"
+    required: false

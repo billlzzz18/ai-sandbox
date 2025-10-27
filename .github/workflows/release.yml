@@ -1,0 +1,139 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        npm ci
+        python -m pip install --upgrade pip
+        pip install build twine
+
+    - name: Run validation
+      run: python validate.py
+
+    - name: Run tests
+      run: |
+        npm test
+        python -m pytest tests/ -v
+
+    - name: Build CLI package
+      run: |
+        python -m build
+        python -m twine check dist/*
+
+    - name: Publish to PyPI
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      run: |
+        python -m twine upload dist/*
+
+    - name: Create GitHub Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          ## Changes in this release
+
+          ### 🚀 New Features
+          - Multi-agent architecture with 9 specialized agents
+          - Cross-platform compatibility (Windows/Linux/macOS/Termux)
+          - Enterprise-grade security and compliance
+
+          ### 🛠️ Improvements
+          - Enhanced validation system
+          - Improved error handling
+          - Better documentation
+
+          ### 🐛 Bug Fixes
+          - Fixed schema validation errors
+          - Resolved import path issues
+          - Improved cross-platform compatibility
+
+          ### 📚 Documentation
+          - Comprehensive README with examples
+          - API documentation
+          - Contributing guidelines
+
+          For more details, see the [changelog](https://github.com/your-org/ai-agent-sandbox/blob/main/CHANGELOG.md).
+
+        draft: false
+        prerelease: false
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+
+    - name: Install Vercel CLI
+      run: npm install -g vercel
+
+    - name: Deploy to Vercel
+      run: vercel --prod --yes
+      env:
+        VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [release, deploy]
+    steps:
+    - name: Notify Slack
+      uses: 8398a7/action-slack@v3
+      with:
+        status: success
+        text: "🎉 AI Agent Sandbox ${{ github.ref }} has been released and deployed!"
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      if: always()
+
+    - name: Notify Discord
+      uses: sarisia/actions-status-discord@v1
+      with:
+        webhook: ${{ secrets.DISCORD_WEBHOOK }}
+        title: "🚀 New Release: AI Agent Sandbox ${{ github.ref }}"
+        description: |
+          A new version of AI Agent Sandbox has been released!
+
+          **Download CLI:**
+          ```bash
+          pip install ai-agent-sandbox
+          ```
+
+          **Web Interface:**
+          https://ai-agent-sandbox.vercel.app
+
+          **Documentation:**
+          https://docs.ai-agent-sandbox.com
+        color: 0x00ff00
+      if: always()

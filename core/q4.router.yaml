@@ -1,0 +1,9 @@
+routing:
+  precedence:
+    - force_by_hint
+    - swot_if_buckets_complete
+    - max_required_fields_coverage
+    - axes_hint_fallback
+  thresholds:
+    coverage: 1.0
+    min_items: 2

@@ -205,7 +205,7 @@ def load_agent(agent_name: str) -> Dict[str, Any]:
 
 
 def _iter_tool_candidates(tool_name: str) -> List[Path]:
-    """Return all matching ``tool/**/*.yaml`` paths for *tool_name*."""
+    """Return all matching ``tool_definitions/**/*.yaml`` paths for *tool_name*."""
 
     tools_root = _ensure_within_base(BASE_PATH / "tool")
     direct = tools_root / f"{tool_name}.yaml"

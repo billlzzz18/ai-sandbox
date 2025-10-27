@@ -1,0 +1,8 @@
+name: "write_python"
+version: "1.0.0"
+description: "เขียนโค้ด Python ตาม requirement"
+parameters:
+  - name: "prompt"
+    type: "string"
+    description: "คำอธิบาย requirement สำหรับการเขียนโค้ด Python"
+    required: true

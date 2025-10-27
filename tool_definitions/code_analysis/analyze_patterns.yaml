@@ -1,0 +1,22 @@
+name: "analyze_patterns"
+version: "1.0.0"
+description: "สแกนโค้ดเบสเพื่อหาแพทเทิร์นที่เกิดซ้ำ เช่น design patterns, anti-patterns และแพทเทิร์นที่กำหนดเอง"
+parameters:
+  - name: "path"
+    type: "string"
+    description: "เส้นทางไปยังโค้ดเบสที่ต้องการวิเคราะห์"
+    required: true
+  - name: "pattern_types"
+    type: "array"
+    description: "ประเภทแพทเทิร์นที่ต้องการค้นหา (design, anti, custom)"
+    required: false
+    default: ["design", "anti"]
+  - name: "custom_patterns"
+    type: "array"
+    description: "แพทเทิร์นที่กำหนดเอง (regex หรือ AST patterns)"
+    required: false
+  - name: "output_visualization"
+    type: "boolean"
+    description: "สร้างการแสดงภาพของแพทเทิร์นที่พบ"
+    required: false
+    default: false

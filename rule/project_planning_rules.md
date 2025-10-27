@@ -1,6 +1,7 @@
 ---
 name: "project-planning-rules"
 version: "1.0.0"
+description: "กฎเกณฑ์สำหรับการวางแผนและจัดการโปรเจกต์"
 ---
 ## Plan Structure
 1.  **Goal Definition:** Clearly state the overall objective of the project.

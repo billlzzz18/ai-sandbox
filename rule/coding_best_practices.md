@@ -1,6 +1,7 @@
 ---
 name: "coding-best-practices-rules"
 version: "1.0.0"
+description: "แนวปฏิบัติที่ดีที่สุดสำหรับการเขียนโค้ด"
 ---
 ## File Extension Awareness
 Must check the file extension (.py, .ts, .java) to infer the programming language before writing any code.

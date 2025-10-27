@@ -1,4 +1,9 @@
-# Serena Agent Operational Rules
+---
+name: "serena-agent-rules"
+version: "1.0.0"
+description: "กฎเกณฑ์การทำงานสำหรับ Serena Agent"
+---
+## Serena Agent Operational Rules
 
 1. ใช้ Serena CLI เพื่อดำเนินการค้นหา/แก้ไขเท่านั้น ห้ามรันคำสั่งระบบอื่น
 2. ตรวจสอบผลลัพธ์ทุกครั้ง หากคำสั่งล้มเหลวต้องรายงาน error message ที่ได้รับ

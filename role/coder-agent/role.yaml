@@ -8,9 +8,9 @@ imports:
     - "../../rule/standard_behavioral_rules.md"
     - "../../rule/coding_best_practices.md"
   tools:
-    - "../../tool/file_system/read_file.yaml"
-    - "../../tool/file_system/write_file.yaml"
-    - "../../tool/file_system/delete_file.yaml"
-    - "../../tool/codebase/execute_code.yaml" # For running tests
-    - "../../tool/local_apps/open_in_vscode.yaml"
-    - "../../tool/web_search/search.yaml"
+    - "../../tool_definitions/file_system/read_file.yaml"
+    - "../../tool_definitions/file_system/write_file.yaml"
+    - "../../tool_definitions/file_system/delete_file.yaml"
+    - "../../tool_definitions/codebase/execute_code.yaml" # For running tests
+    - "../../tool_definitions/local_apps/open_in_vscode.yaml"
+    - "../../tool_definitions/web_search/search.yaml"

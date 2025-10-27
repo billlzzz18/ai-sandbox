@@ -19,3 +19,15 @@ Repository นี้ถูกสร้างขึ้นเพื่อรอง
     *   การส่งบริบททั้งหมดของเอเจนต์ (persona, rules, refined prompt) ไปยัง LLM
     *   การประมวลผลผลลัพธ์จาก LLM เพื่อแสดงต่อผู้ใช้ หรือเพื่อเรียกใช้เครื่องมือผ่านเมธอด `agent.run_tool()`
 3.  **กำหนดและสร้างเอเจนต์ชุดใหม่:** สร้างไฟล์ `role`, `prompt`, และ `rule` สำหรับเอเจนต์ชุดถัดไปที่ได้มีการร้องขอ (`novel-writer`, `table-data-agent`, `song-writer`, `seo-agent`, etc.) ซึ่งเป็นส่วนหนึ่งของ "Phase C"
+
+#### **การเพิ่มเอเจนต์ Gemini CLI (Phase B+)**
+ได้เพิ่มการสนับสนุนสำหรับ Gemini CLI เป็นเอเจนต์ใหม่ในเฟรมเวิร์ก:
+
+1. **ติดตั้ง Gemini CLI:** ติดตั้ง `@google/gemini-cli@latest` ผ่าน npm
+2. **ตั้งค่าตัวแปรสภาพแวดล้อม:** `GEMINI_API_KEY` และ `GOOGLE_CLOUD_PROJECT`
+3. **สร้างโครงสร้างเอเจนต์:**
+   - `role/gemini-agent/role.yaml` - นิยามบทบาทและเครื่องมือของ Gemini Agent
+   - `prompt/coding/gemini_agent_prompt.yaml` - พรอมต์สำหรับ Gemini Agent
+   - `rule/gemini/gemini_rules.md` - กฎเกณฑ์เฉพาะสำหรับ Gemini CLI
+4. **พัฒนาเครื่องมือจริง:** แทนที่ฟังก์ชัน stub ใน `tools/core_logic.py` ด้วยการเรียกใช้ Gemini CLI จริง
+5. **การทำงาน:** Gemini Agent สามารถสร้างโค้ด Python/TypeScript, วิเคราะห์โค้ด, ค้นหาเว็บ, และทำงานอื่นๆ ผ่าน Gemini CLI

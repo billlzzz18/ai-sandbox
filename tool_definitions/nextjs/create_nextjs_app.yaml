@@ -1,0 +1,7 @@
+name: "create_nextjs_app"
+description: "Create a new Next.js application with modern best practices and optimized configuration"
+execution_environment:
+  type: "shell"
+execution_policy:
+  default_mode: "auto"
+  allowed_modes: ["auto", "interactive"]

@@ -97,8 +97,8 @@ def main():
                     error_count += 1
 
     # Validate tools
-    print("\nValidating tools in /tool/...")
-    for root, _, files in os.walk('tool'):
+    print("\nValidating tools in /tool_definitions/...")
+    for root, _, files in os.walk('tool_definitions'):
         for file in files:
             if file.endswith('.yaml'):
                 path = os.path.join(root, file)
@@ -110,6 +110,76 @@ def main():
                     print(f"  ❌ {path} - Validation Failed!")
                     print(f"     {e}")
                     error_count += 1
+
+    # Validate prompts
+    print("\nValidating prompts in /prompt/...")
+    for root, _, files in os.walk('prompt'):
+        for file in files:
+            if file.endswith('.yaml'):
+                path = os.path.join(root, file)
+                try:
+                    instance = load_yaml_file(path)
+                    # Basic validation for prompt structure
+                    if 'name' not in instance:
+                        raise ValidationError("Missing required field: name")
+                    if 'persona' not in instance:
+                        raise ValidationError("Missing required field: persona")
+                    if 'prompt' not in instance:
+                        raise ValidationError("Missing required field: prompt")
+                    print(f"  ✅ {path}")
+                except (ValidationError, Exception) as e:
+                    print(f"  ❌ {path} - Validation Failed!")
+                    print(f"     {e}")
+                    error_count += 1
+
+    # Validate rules
+    print("\nValidating rules in /rule/...")
+    for root, _, files in os.walk('rule'):
+        for file in files:
+            if file.endswith('.md'):
+                path = os.path.join(root, file)
+                try:
+                    with open(path, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    # Basic validation for rule structure
+                    if not content.startswith('---'):
+                        raise ValidationError("Rule file must start with frontmatter")
+                    lines = content.split('\n')
+                    if len(lines) < 3 or not lines[1].startswith('name:'):
+                        raise ValidationError("Rule file must have name in frontmatter")
+                    print(f"  ✅ {path}")
+                except (ValidationError, Exception) as e:
+                    print(f"  ❌ {path} - Validation Failed!")
+                    print(f"     {e}")
+                    error_count += 1
+
+    # Validate config files
+    print("\nValidating config files in /config/...")
+    if os.path.exists('config'):
+        for root, _, files in os.walk('config'):
+            for file in files:
+                if file.endswith('.yaml'):
+                    path = os.path.join(root, file)
+                    try:
+                        instance = load_yaml_file(path)
+                        # Basic validation for config structure
+                        if not isinstance(instance, dict):
+                            raise ValidationError("Config file must contain a dictionary")
+                        print(f"  ✅ {path}")
+                    except (ValidationError, Exception) as e:
+                        print(f"  ❌ {path} - Validation Failed!")
+                        print(f"     {e}")
+                        error_count += 1
+                elif file.endswith('.json'):
+                    path = os.path.join(root, file)
+                    try:
+                        with open(path, 'r', encoding='utf-8') as f:
+                            json.load(f)
+                        print(f"  ✅ {path}")
+                    except Exception as e:
+                        print(f"  ❌ {path} - Validation Failed!")
+                        print(f"     {e}")
+                        error_count += 1
 
     if error_count > 0:
         print(f"\n--- Validation Complete: Found {error_count} errors. ---")

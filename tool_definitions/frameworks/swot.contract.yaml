@@ -1,0 +1,5 @@
+name: swot
+description: "SWOT analysis framework for strategic planning"
+input: schemas/q4.input.schema.json
+output: schemas/q4.output.swot.schema.json
+sections: [S, W, O, T]

@@ -1,0 +1,22 @@
+name: "gemini-agent"
+version: "1.0.0"
+description: "Agent สำหรับการโต้ตอบกับ Gemini CLI สำหรับการเขียนโค้ดและการพัฒนา"
+imports:
+  prompts:
+    - "../../prompt/coding/gemini_agent_prompt.yaml"
+  rules:
+    - "../../rule/standard_behavioral_rules.md"
+    - "../../rule/coding_best_practices.md"
+    - "../../rule/gemini/gemini_rules.md"
+  tools:
+    - "../../tool_definitions/gpts_actions/write_python.yaml"
+    - "../../tool_definitions/gpts_actions/write_typescript.yaml"
+    - "../../tool_definitions/gpts_actions/read_code.yaml"
+    - "../../tool_definitions/gpts_actions/refactor_code.yaml"
+    - "../../tool_definitions/gpts_actions/web_search.yaml"
+    - "../../tool_definitions/gpts_actions/deep_research.yaml"
+    - "../../tool_definitions/gpts_actions/commit_message_thai.yaml"
+    - "../../tool_definitions/gpts_actions/create_mind_map.yaml"
+    - "../../tool_definitions/gpts_actions/fix_github_actions.yaml"
+    - "../../tool_definitions/gpts_actions/memory_store.yaml"
+    - "../../tool_definitions/gpts_actions/think_deeper.yaml"

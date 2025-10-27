@@ -1,0 +1,21 @@
+name: "generate_review_template"
+version: "1.0.0"
+description: "สร้างเทมเพลตสำหรับการรีวิวโค้ดที่ปรับแต่งได้ รวมถึงส่วนสรุป จุดแข็ง จุดอ่อน ความปลอดภัย ประสิทธิภาพ และเกณฑ์การอนุมัติ"
+parameters:
+  - name: "template_type"
+    type: "string"
+    description: "ประเภทเทมเพลต (basic, comprehensive, security_focused, performance_focused)"
+    required: false
+    default: "comprehensive"
+  - name: "custom_sections"
+    type: "array"
+    description: "ส่วนเพิ่มเติมที่ต้องการในเทมเพลต"
+    required: false
+  - name: "language"
+    type: "string"
+    description: "ภาษาโปรแกรมสำหรับการปรับแต่งเทมเพลต"
+    required: false
+  - name: "output_path"
+    type: "string"
+    description: "เส้นทางสำหรับบันทึกเทมเพลต"
+    required: false

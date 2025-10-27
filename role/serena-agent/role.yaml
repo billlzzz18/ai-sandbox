@@ -7,5 +7,5 @@ imports:
   rules:
     - "../../rule/serena/serena_rules.md"
   tools:
-    - "../../tool/serena/find_symbol.yaml"
-    - "../../tool/serena/insert_after_symbol.yaml"
+    - "../../tool_definitions/serena/find_symbol.yaml"
+    - "../../tool_definitions/serena/insert_after_symbol.yaml"

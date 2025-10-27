@@ -1,0 +1,17 @@
+name: "analyze_code"
+version: "1.0.0"
+description: "วิเคราะห์โค้ดเพื่อหาข้อผิดพลาดทางไวยากรณ์ จุดบกพร่องที่อาจเกิดขึ้น และเมตริกคุณภาพโค้ด"
+parameters:
+  - name: "path"
+    type: "string"
+    description: "เส้นทางไปยังไฟล์หรือไดเรกทอรีที่ต้องการวิเคราะห์"
+    required: true
+  - name: "language"
+    type: "string"
+    description: "ภาษาโปรแกรม (python, javascript, java, etc.)"
+    required: false
+  - name: "output_format"
+    type: "string"
+    description: "รูปแบบผลลัพธ์ (json, text, html)"
+    required: false
+    default: "text"

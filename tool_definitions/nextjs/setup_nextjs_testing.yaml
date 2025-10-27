@@ -1,0 +1,7 @@
+name: "setup_nextjs_testing"
+description: "Set up comprehensive testing infrastructure for Next.js applications including Jest, React Testing Library, and Playwright"
+execution_environment:
+  type: "shell"
+execution_policy:
+  default_mode: "full"
+  allowed_modes: ["minimal", "standard", "full"]

@@ -1,0 +1,10 @@
+name: eisenhower
+description: "Eisenhower matrix for task prioritization"
+input: schemas/q4.input.schema.json
+output: schemas/q4.output.quadrant.schema.json
+axes: { x: urgency, y: importance }
+quadrants:
+  Q1: { x: high, y: high, name: Do Now }
+  Q2: { x: low,  y: high, name: Schedule }
+  Q3: { x: high, y: low,  name: Delegate }
+  Q4: { x: low,  y: low,  name: Eliminate }

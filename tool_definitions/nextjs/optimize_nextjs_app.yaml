@@ -1,0 +1,7 @@
+name: "optimize_nextjs_app"
+description: "Analyze and optimize Next.js application performance, bundle size, and Core Web Vitals"
+execution_environment:
+  type: "analysis"
+execution_policy:
+  default_mode: "comprehensive"
+  allowed_modes: ["basic", "comprehensive", "detailed"]

@@ -8,11 +8,11 @@ imports:
     - "../../rule/learning/tutor_rules.md"
   tools:
     # Learning Tools
-    - "../../tool/learning/create_learning_plan.yaml"
-    - "../../tool/learning/find_analogy.yaml"
-    - "../../tool/learning/generate_quiz.yaml"
-    - "../../tool/learning/evaluate_answer.yaml"
+    - "../../tool_definitions/learning/create_learning_plan.yaml"
+    - "../../tool_definitions/learning/find_analogy.yaml"
+    - "../../tool_definitions/learning/generate_quiz.yaml"
+    - "../../tool_definitions/learning/evaluate_answer.yaml"
     # Memory Tools for context
-    - "../../tool/memory/prompt_cache.yaml"
-    - "../../tool/memory/file_manager.yaml"
-    - "../../tool/memory/user_profile_manager.yaml"
+    - "../../tool_definitions/memory/prompt_cache.yaml"
+    - "../../tool_definitions/memory/file_manager.yaml"
+    - "../../tool_definitions/memory/user_profile_manager.yaml"

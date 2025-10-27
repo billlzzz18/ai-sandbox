@@ -1,0 +1,10 @@
+name: value_effort
+description: "Value vs Effort quadrant analysis framework"
+input: schemas/q4.input.schema.json
+output: schemas/q4.output.quadrant.schema.json
+axes: { x: effort, y: impact }
+quadrants:
+  Q1: { x: low,  y: high, name: Quick Wins }
+  Q2: { x: high, y: high, name: Major Projects }
+  Q3: { x: low,  y: low,  name: Fill-ins }
+  Q4: { x: high, y: low,  name: Thankless Tasks }

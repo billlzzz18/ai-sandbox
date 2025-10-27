@@ -1,0 +1,98 @@
+# Agent Configuration File
+# This file contains user-editable settings for the CLI agent system
+# Location: ~/.agent-config/agent_config.yaml (recommended) or ./config/agent_config.yaml
+
+# General Settings
+general:
+  debug_mode: false
+  log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  max_concurrent_operations: 5
+  timeout_seconds: 300
+
+# Code Analysis Settings
+code_analysis:
+  default_language: "python"
+  syntax_check_enabled: true
+  quality_metrics_enabled: true
+  max_file_size_mb: 10
+  exclude_patterns:
+    - "*.min.js"
+    - "*.min.css"
+    - "node_modules/**"
+    - ".git/**"
+    - "__pycache__/**"
+
+# Pattern Analysis Settings
+pattern_analysis:
+  design_patterns_enabled: true
+  anti_patterns_enabled: true
+  custom_patterns_file: "custom_patterns.json"
+  max_pattern_matches: 100
+  pattern_search_timeout: 60
+
+# Best Practices Review Settings
+best_practices:
+  standards_to_check:
+    - "solid"
+    - "dry"
+    - "kiss"
+    - "language_specific"
+  score_thresholds:
+    excellent: 90
+    good: 70
+    needs_improvement: 50
+  generate_reports: true
+  report_format: "text"  # text, json, html
+
+# Gemini CLI Settings
+gemini:
+  api_key_env_var: "GEMINI_API_KEY"
+  project_env_var: "GOOGLE_CLOUD_PROJECT"
+  default_model: "gemini-1.5-flash"
+  max_tokens: 4096
+  temperature: 0.7
+  retry_attempts: 3
+  retry_delay_seconds: 1
+
+# Memory and Session Management
+memory:
+  short_term_history_file: "session_history.log"
+  long_term_data_file: "agent_sessions.jsonl"
+  max_history_entries: 1000
+  cleanup_old_entries_days: 30
+
+# Tool Execution Settings
+tools:
+  default_execution_mode: "auto"  # auto, manual, interactive
+  allow_file_operations: true
+  allow_network_operations: true
+  sandbox_enabled: false
+  execution_timeout_seconds: 60
+
+# UI and Display Settings
+ui:
+  color_output: true
+  verbose_output: false
+  progress_bars: true
+  table_format: "fancy"  # simple, fancy, markdown
+
+# Integration Settings
+integrations:
+  git_enabled: true
+  github_api_enabled: false
+  vscode_integration: true
+  external_tools_path: "~/.agent-tools"
+
+# Security Settings
+security:
+  allow_code_execution: false
+  validate_inputs: true
+  sanitize_outputs: true
+  max_command_length: 1000
+
+# Performance Settings
+performance:
+  cache_enabled: true
+  cache_ttl_seconds: 3600
+  parallel_processing: true
+  memory_limit_mb: 512

@@ -1,0 +1,20 @@
+name: "nextjs-agent"
+version: "1.0.0"
+description: "AI-powered Next.js development assistant specializing in React, TypeScript, and modern web development best practices"
+
+imports:
+  prompts:
+    - "../../prompt/coding/nextjs_agent_prompt.yaml"
+  rules:
+    - "../../rule/nextjs/nextjs_best_practices.md"
+    - "../../rule/coding_best_practices.md"
+    - "../../rule/standard_behavioral_rules.md"
+  tools:
+    - "../../tool_definitions/gpts_actions/write_typescript.yaml"
+    - "../../tool_definitions/gpts_actions/write_python.yaml"
+    - "../../tool_definitions/gpts_actions/create_mind_map.yaml"
+    - "../../tool_definitions/code_analysis/analyze_code.yaml"
+    - "../../tool_definitions/code_analysis/review_best_practices.yaml"
+    - "../../tool_definitions/web_search/search.yaml"
+    - "../../tool_definitions/file_system/read_file.yaml"
+    - "../../tool_definitions/file_system/write_file.yaml"

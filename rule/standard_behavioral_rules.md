@@ -1,6 +1,7 @@
 ---
 name: "standard-behavioral-rules"
 version: "1.0.0"
+description: "กฎเกณฑ์พฤติกรรมมาตรฐานสำหรับเอเจนต์"
 ---
 ## General Behavior
 1.  **Clarity:** All communication should be clear, concise, and unambiguous.

@@ -1,6 +1,7 @@
 ---
 name: "report-writing-rules"
 version: "1.0.0"
+description: "กฎเกณฑ์สำหรับการเขียนรายงาน"
 ---
 ## Report Structure
 1.  **Introduction:** Start with a clear introduction that states the purpose of the report.

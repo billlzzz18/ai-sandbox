@@ -1,0 +1,46 @@
+{
+  "patterns": [
+    {
+      "name": "console_log_debug",
+      "regex": "console\\.log\\(.*\\)",
+      "description": "Debug console.log statements left in production code",
+      "severity": "warning",
+      "language": "javascript"
+    },
+    {
+      "name": "todo_comments",
+      "regex": "//\\s*TODO:|#\\s*TODO:",
+      "description": "TODO comments that should be addressed",
+      "severity": "info",
+      "language": "universal"
+    },
+    {
+      "name": "hardcoded_passwords",
+      "regex": "password\\s*=\\s*['\"][^'\"]{0,20}['\"]",
+      "description": "Potentially hardcoded passwords",
+      "severity": "critical",
+      "language": "universal"
+    },
+    {
+      "name": "unused_imports_python",
+      "regex": "^import\\s+\\w+(?:\\s+as\\s+\\w+)?$",
+      "description": "Potentially unused imports",
+      "severity": "warning",
+      "language": "python"
+    },
+    {
+      "name": "long_functions",
+      "regex": "def\\s+\\w+.*:",
+      "description": "Functions that might be too long",
+      "severity": "info",
+      "language": "python",
+      "check_function": "check_function_length"
+    }
+  ],
+  "functions": {
+    "check_function_length": {
+      "description": "Check if function is longer than 50 lines",
+      "threshold": 50
+    }
+  }
+}

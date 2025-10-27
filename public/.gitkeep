@@ -1,0 +1,36 @@
+# Public Assets Directory
+
+This directory contains public assets for the AI Agent Sandbox project:
+
+- Logo and branding images
+- Screenshots and demo images
+- Documentation images
+- Marketing materials
+
+## Directory Structure
+
+```
+public/
+├── logo/           # Company and product logos
+├── screenshots/    # Application screenshots
+├── docs/          # Documentation images
+├── marketing/     # Marketing materials
+└── .gitkeep       # Keep this directory in git
+```
+
+## Usage
+
+Images in this directory are served directly by web servers and can be referenced in:
+
+- README.md files
+- Documentation
+- Web applications
+- Marketing materials
+
+## Guidelines
+
+- Use optimized images (WebP, AVIF when possible)
+- Include alt text for accessibility
+- Use descriptive filenames
+- Keep file sizes reasonable (<500KB per image)
+- Use consistent naming conventions

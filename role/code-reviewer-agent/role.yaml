@@ -1,0 +1,16 @@
+name: "code-reviewer-agent"
+version: "1.0.0"
+description: "Agent สำหรับการรีวิวโค้ดอย่างครบถ้วน รวมถึงการวิเคราะห์โค้ด การตรวจสอบแพทเทิร์น และการประเมินแนวปฏิบัติที่ดีที่สุด"
+imports:
+  prompts:
+    - "../../prompt/coding/code-reviewer.md"
+  rules:
+    - "../../rule/standard_behavioral_rules.md"
+    - "../../rule/coding_best_practices.md"
+  tools:
+    - "../../tool_definitions/code_analysis/analyze_code.yaml"
+    - "../../tool_definitions/code_analysis/analyze_patterns.yaml"
+    - "../../tool_definitions/code_analysis/review_best_practices.yaml"
+    - "../../tool_definitions/code_review/generate_review_template.yaml"
+    - "../../tool_definitions/file_system/read_file.yaml"
+    - "../../tool_definitions/web_search/search.yaml"

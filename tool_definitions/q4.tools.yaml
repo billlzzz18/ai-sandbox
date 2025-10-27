@@ -1,0 +1,58 @@
+name: "q4_tools"
+description: "Quadrant analysis tools for business frameworks"
+version: 1
+tools:
+  - name: value_effort
+    description: "Value vs Effort quadrant analysis"
+    module: tool_implementations.frameworks.value_effort
+    output: quadrant
+    detect:
+      required_fields: [impact, effort]
+      axes: { x: effort, y: impact }
+  - name: eisenhower
+    description: "Eisenhower matrix for task prioritization"
+    module: tool_implementations.frameworks.eisenhower
+    output: quadrant
+    detect:
+      required_fields: [urgency, importance]
+      axes: { x: urgency, y: importance }
+  - name: risk_matrix
+    description: "Risk assessment matrix"
+    module: tool_implementations.frameworks.risk_matrix
+    output: quadrant
+    detect:
+      required_fields: [likelihood, impact]
+      axes: { x: likelihood, y: impact }
+  - name: bcg
+    description: "Boston Consulting Group matrix"
+    module: tool_implementations.frameworks.bcg
+    output: quadrant
+    detect:
+      required_fields: [market_share, growth]
+      axes: { x: market_share, y: growth }
+  - name: ansoff
+    description: "Ansoff growth matrix"
+    module: tool_implementations.frameworks.ansoff
+    output: quadrant
+    detect:
+      required_fields: [product, market]
+      categorical_maps:
+        x_map: { existing: low, new: high }
+        y_map: { existing: low, new: high }
+      axes: { x: product, y: market }
+  - name: impact_feasibility
+    description: "Impact vs Feasibility analysis"
+    module: tool_implementations.frameworks.impact_feasibility
+    output: quadrant
+    detect:
+      required_fields: [impact, feasibility]
+      axes: { x: feasibility, y: impact }
+  - name: swot
+    description: "SWOT analysis framework"
+    module: tool_implementations.frameworks.swot
+    output: swot
+    detect:
+      required_buckets: [S, W, O, T]
+defaults:
+  threshold: 0.5
+  ui: { style: cards, theme: neutral }

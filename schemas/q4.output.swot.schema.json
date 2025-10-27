@@ -1,0 +1,6 @@
+{ "type":"object","required":["layout","framework","sections","ui"],
+  "properties":{
+    "layout":{"const":"swot_grid"},"framework":{"const":"SWOT"},
+    "sections":{"type":"object","required":["S","W","O","T"]},"ui":{"type":"object"},
+    "meta":{"type":"object"}}
+}

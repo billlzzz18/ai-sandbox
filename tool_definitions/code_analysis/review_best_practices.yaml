@@ -1,0 +1,22 @@
+name: "review_best_practices"
+version: "1.0.0"
+description: "ตรวจสอบโค้ดเบสเทียบกับแนวปฏิบัติที่ดีที่สุด เช่น SOLID principles, DRY, KISS และแนวทางเฉพาะภาษา"
+parameters:
+  - name: "path"
+    type: "string"
+    description: "เส้นทางไปยังโค้ดเบสที่ต้องการตรวจสอบ"
+    required: true
+  - name: "standards"
+    type: "array"
+    description: "มาตรฐานที่ต้องการตรวจสอบ (solid, dry, kiss, language_specific)"
+    required: false
+    default: ["solid", "dry", "kiss"]
+  - name: "language"
+    type: "string"
+    description: "ภาษาโปรแกรมหลักของโค้ดเบส"
+    required: false
+  - name: "generate_report"
+    type: "boolean"
+    description: "สร้างรายงานโดยละเอียดพร้อมคะแนนและคำแนะนำ"
+    required: false
+    default: true
