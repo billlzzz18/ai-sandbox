@@ -1,130 +1,182 @@
-# AI Agent Sandbox
+# AI Agent Framework - Playbook Generator v1
 
-Welcome to the AI Agent Sandbox, a repository for designing, managing, and benchmarking standardized AI agents based on a "Five Pillars" architecture. The runtime is implemented as a secure Express server powered by Node.js so that the sandbox can be accessed over HTTP in addition to direct scripting.
+A production-ready AI agent framework with Playbook Generator v1, featuring enterprise-grade reliability, security, observability, and cost controls. Built for Phase D deployment with comprehensive tooling for multi-language ecosystems.
 
-## The Five Pillars Architecture
+## 🚀 Quick Start
 
-This project is built on a modular, configuration-driven architecture composed of five core concepts, or "pillars":
-
-1.  **/role/**: Defines the high-level identity and capabilities of an agent. Each agent has its own directory containing a `role.yaml` file, which acts as the main entry point for loading that agent. It specifies which prompts, rules, and tools the agent uses.
-
-2.  **/prompt/**: Contains the core persona and instruction sets for agents. These are written in YAML and define the agent's personality, tone, and primary directives.
-
-3.  **/rule/**: Contains Markdown files that define specific behavioral guidelines, constraints, or operational rules for an agent. This allows for complex behaviors to be defined in a human-readable way.
-
-4.  **/tool/**: Contains the definitions (`.yaml` files) for all tools available to agents. These definitions specify the tool's name, description, and execution environment, but not its implementation.
-
-5.  **/template/**: Contains master templates for creating new components, ensuring consistency across the architecture.
-
-## Express Runtime (`server.js`)
-
-The former Python CLI has been replaced with a hardened Express application (`server.js`). It exposes HTTP endpoints for previewing agents and executing tools while keeping all file operations sandboxed inside this repository.
+### Prerequisites
+- Node.js 18+ (npm)
+- Python 3.12+ (pip/uv)
+- PHP 8.1+ (Composer)
+- Ruby 3.0+ (Bundler)
+- Google Gemini API key
 
 ### Installation
 
-Install the Node.js dependencies once per checkout:
-
 ```bash
+# Install Node.js dependencies
 npm install
+
+# Install Python dependencies
+pip install -e .  # or uv pip install -e .
+
+# Install PHP dependencies
+composer install
+
+# Install Ruby dependencies
+bundle install
+
+# For monorepo support
+pnpm install
 ```
 
-### Start the server
+### Run Playbook Generator v1
 
 ```bash
-npm start
+# Set your Gemini API key
+export GEMINI_API_KEY="your-api-key-here"
+
+# Run the Playbook Generator
+cd playbook_generator_v1 && python main.py
 ```
 
-The server listens on `http://localhost:3000` by default. Override the port by exporting `PORT=<number>` before starting the server.
+## 📋 Features
 
-### Preview an agent
+### Core Components
+- **Playbook Generator v1**: AI-powered workflow generation with Gemini 2.5-flash
+- **Atomic Tools**: Think_And_Plan, Memory/File/Search/Code operations, Playbook saver
+- **Orchestrator**: Tool calling loops with correlation tracking
+- **Real Artifact Generation**: Task decompositions, unit tests, documentation, API specs
 
-Send a POST request to `/agents/preview` with the path to a role file and an optional prompt:
+### Production Hardening (Phase C→D)
+- **Contract & Versioning**: v1 schemas with compatibility matrix
+- **Observability**: OpenTelemetry tracing + metrics + SLO monitoring
+- **Plugin Security**: Sandbox execution, scopes, JIT tokens
+- **Memory Governance**: Namespaced storage, encryption, TTL policies
+- **Workflow Safety**: Dedupe keys, replay journals, exactly-once semantics
+- **Cost Control**: Rate limiting, quotas, auto-throttling
+- **Runbooks & DR**: Incident response playbooks, backup/restore procedures
+
+### Multi-Language Support
+- **Node.js**: Express server with REST API
+- **Python**: CLI tools and agent implementations
+- **PHP**: Agent loader and utilities
+- **Ruby**: Configuration management and tools
+- **pnpm**: Monorepo workspace management
+
+## 🏗️ Architecture
+
+```
+├── cli/                    # Multi-language CLI implementations
+│   ├── python/            # Python agent framework
+│   ├── php/               # PHP utilities
+│   └── ruby/              # Ruby configuration tools
+├── core/                  # Production hardening modules
+│   ├── memory.py          # Encrypted, namespaced memory
+│   ├── plugin_sandbox.py  # Secure plugin execution
+│   ├── rate_limiter.py    # Cost control & throttling
+│   ├── tracing.py         # OpenTelemetry observability
+│   └── workflow_safety.py # Idempotency & replay
+├── playbook_generator_v1/ # Main application
+│   ├── main.py           # Orchestrator with Gemini integration
+│   └── *.txt|*.md|*.json # Generated artifacts
+├── schemas/               # v1 contract definitions
+│   ├── workflow.schema.yaml
+│   ├── memory.api.json
+│   └── plugin.manifest.json
+├── docs/                  # Documentation & cookbooks
+├── runbooks/              # Operational procedures
+├── public/                # Web UI assets
+└── tests/                 # Test suites
+```
+
+## 🧪 Testing
 
 ```bash
-curl -X POST http://localhost:3000/agents/preview \
-  -H 'Content-Type: application/json' \
-  -d '{"rolePath": "role/coder-agent/role.yaml", "prompt": "write a hello world function in python"}'
+# Run all tests
+pytest tests/ -v
+
+# Run linting
+flake8 core/ playbook_generator_v1/ scripts/ tests/
+pylint core/ playbook_generator_v1/ scripts/ tests/
+
+# Validate schemas
+python scripts/validate_schemas.py
 ```
 
-The response contains the refined prompt, loaded rules, and tool metadata.
+## 📚 Documentation
 
-### Execute a tool
+### Cookbooks
+- [Parallel Patterns](docs/cookbook/parallel_patterns.md)
+- [Conditional Branching](docs/cookbook/conditional_branch.md)
+- [Plugin I/O](docs/cookbook/plugin_io.md)
+- [Memory-Augmented Agents](docs/cookbook/memory_augmented.md)
+- [Rollback Strategies](docs/cookbook/rollback.md)
 
+### Quickstarts
+- [Getting Started](docs/quickstarts.md)
+
+### Operational Runbooks
+- [Queue Saturation](runbooks/queue_saturation.md)
+- [DLQ Drain](runbooks/dlq_drain.md)
+- [Agent Crash Recovery](runbooks/agent_crash.md)
+- [Memory Index Rebuild](runbooks/memory_rebuild.md)
+- [Safe Mode](runbooks/safe_mode.md)
+- [DR Plan](runbooks/dr_plan.md)
+
+## 🔒 Security
+
+- **Plugin Sandboxing**: Subprocess/container isolation with resource limits
+- **Memory Encryption**: AES-256 at rest, TLS 1.3 in transit
+- **Access Control**: Namespaced permissions, audit logging
+- **Rate Limiting**: Per-user quotas with auto-throttling
+- **Input Validation**: Schema-based validation for all inputs
+
+## 📊 Observability
+
+- **Tracing**: End-to-end correlation IDs across Bus→Orchestrator→Agent→Tool→Memory
+- **Metrics**: Queue depth, p95/p99 latency, success rates, resource usage
+- **SLOs**: ≥99% success rate, ≤2s p95 end-to-end, ≤5% error budget
+- **Dashboards**: Live traces, flame graphs, cost monitoring
+
+## 🚀 Deployment
+
+### Phase D Readiness Checklist
+- ✅ v1 contracts published with adapters
+- ✅ SLO monitoring (30d success rate tracking)
+- ✅ Soak/chaos testing (no data loss)
+- ✅ Security review (CIS baseline compliance)
+- ✅ Cost controls (budget throttling active)
+
+### Environment Variables
 ```bash
-curl -X POST http://localhost:3000/agents/tools/execute \
-  -H 'Content-Type: application/json' \
-  -d '{"rolePath": "role/coder-agent/role.yaml", "toolName": "write_python", "args": ["print(1)"]}'
+# Required
+GEMINI_API_KEY=your-gemini-api-key
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317  # Optional
+
+# Optional
+REDIS_URL=redis://localhost:6379                    # For rate limiting
+MEMORY_ENCRYPTION_KEY=your-32-byte-key             # For memory encryption
 ```
 
-### Smoke test
+## 🤝 Contributing
 
-A lightweight verification script is available:
+1. Fork the repository
+2. Create a feature branch
+3. Add tests for new functionality
+4. Ensure all linting passes
+5. Submit a pull request
 
-```bash
-npm test
-```
+## 📄 License
 
-## How to Add a New Agent
+See [LICENSE](LICENSE) for details.
 
-1.  **Create a Directory:** Create a new directory for your agent under `/role/`. For example, `/role/new-agent/`.
+## 🆘 Support
 
-2.  **Define a Prompt (Optional):** Create a new `.yaml` file in a relevant subdirectory of `/prompt/`. Define the agent's `persona` and `prompt`.
+- **Issues**: [GitHub Issues](https://github.com/your-org/ai-agent-framework/issues)
+- **Documentation**: [Full Docs](docs/)
+- **Runbooks**: [Operational Procedures](runbooks/)
 
-3.  **Define Rules (Optional):** Create a new `.md` file in a relevant subdirectory of `/rule/`. Add any specific behavioral rules.
+---
 
-4.  **Create the Role File:** Create `role.yaml` inside your agent's directory (`/role/new-agent/role.yaml`). In this file, import the prompt, rules, and any tools the agent needs.
-
-    ```yaml
-    name: "new-agent"
-    version: "1.0.0"
-    description: "A description of the new agent."
-    imports:
-      prompts:
-        - "../../prompt/path/to/your_prompt.yaml"
-      rules:
-        - "../../rule/path/to/your_rules.md"
-      tools:
-        - "../../tool/file_system/read_file.yaml"
-        - "../../tool/web_search/search.yaml"
-    ```
-
-5.  **Test it:** Use the preview endpoint to confirm everything loads correctly:
-
-    ```bash
-    curl -X POST http://localhost:3000/agents/preview \
-      -H 'Content-Type: application/json' \
-      -d '{"rolePath": "role/new-agent/role.yaml", "prompt": "test prompt"}'
-    ```
-
-## How to Add a New Tool
-
-1.  **Define the Tool:** Create a new `.yaml` file for your tool in a relevant subdirectory of `/tool/`. Use the `/template/master/tool_template.yaml` as a reference.
-
-    ```yaml
-    # In /tool/new_category/new_tool.yaml
-    name: "new_tool_name"
-    description: "What this new tool does."
-    # ... other fields
-    ```
-
-2.  **Implement the Stub:** Open `tools/apiStubs.js` (for API tools) or `tools/coreLogic.js` (for internal functions) and add a JavaScript function stub for your new tool.
-
-    ```javascript
-    // In tools/coreLogic.js
-    function new_tool_name(...args) {
-      console.log(`[TOOL EXECUTED] new_tool_name with args: ${JSON.stringify(args)}`);
-      return { status: 'success', result: 'some_value' };
-    }
-    ```
-
-3.  **Register the Tool:** Open `tools/index.js` and add your new function to the `MASTER_TOOL_MAP` dictionary so that the Express server can locate it.
-
-4.  **Add to an Agent:** Add the path to your new tool's `.yaml` file to an agent's `role.yaml` to grant it access.
-
-## Validation
-
-To ensure all configuration files are valid, run the validation script:
-```bash
-# You may need to install dependencies first: pip install pyyaml jsonschema
-python validate.py
-```
+**Built for Enterprise AI Agent Orchestration** - Production-ready with comprehensive tooling for reliability, security, and observability.
