@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Plugin Manifest Schema v1",
+  "description": "Schema for plugin manifests in the agent framework. Version 1.0.0",
+  "type": "object",
+  "required": ["name", "version", "scopes", "execution_policy"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique plugin name",
+      "minLength": 1,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of the plugin",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)(?:\\+[0-9a-zA-Z-]+)?)?(?:\\+[0-9a-zA-Z-]+)?)$"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description"
+    },
+    "scopes": {
+      "type": "object",
+      "description": "Required permissions (default: deny-all)",
+      "properties": {
+        "network": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "Allowed domains or IPs"
+          },
+          "description": "Outbound network access (allow-list)"
+        },
+        "filesystem": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "Allowed paths (glob patterns)"
+          },
+          "description": "File system access"
+        },
+        "secrets": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "Secret keys accessible"
+          },
+          "description": "Secret access"
+        },
+        "cpu_limit": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 4.0,
+          "description": "CPU cores limit"
+        },
+        "memory_limit": {
+          "type": "integer",
+          "minimum": 64,
+          "maximum": 4096,
+          "description": "Memory in MB"
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "network": [],
+        "filesystem": [],
+        "secrets": [],
+        "cpu_limit": 0.5,
+        "memory_limit": 256
+      }
+    },
+    "execution_policy": {
+      "type": "object",
+      "properties": {
+        "sandbox": {
+          "type": "string",
+          "enum": ["subprocess", "container", "none"],
+          "default": "subprocess",
+          "description": "Execution environment"
+        },
+        "default_mode": {
+          "type": "string",
+          "enum": ["auto", "manual"],
+          "default": "auto"
+        },
+        "outbound_policy": {
+          "type": "string",
+          "enum": ["allow-list", "deny-all"],
+          "default": "deny-all"
+        },
+        "tls_pinning": {
+          "type": "boolean",
+          "default": false,
+          "description": "Require TLS certificate pinning"
+        }
+      },
+      "additionalProperties": false
+    },
+    "imports": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Allowed Python modules"
+      },
+      "description": "Runtime import allow-list"
+    },
+    "entry_point": {
+      "type": "string",
+      "description": "Main execution file or function"
+    }
+  },
+  "additionalProperties": false,
+  "compat_matrix": {
+    "min_framework_version": "1.0.0",
+    "max_framework_version": "1.0.0",
+    "deprecations": [
+      {
+        "field": "legacy_scopes",
+        "deprecated_since": "1.0.0",
+        "removal_date": "2025-12-31",
+        "replacement": "scopes object"
+      }
+    ],
+    "feature_flags": {
+      "jit_tokens": true,
+      "static_scan": true
+    }
+  }
+}

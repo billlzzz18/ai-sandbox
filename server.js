@@ -1,12 +1,18 @@
 'use strict';
 
-const express = require('express');
-const helmet = require('helmet');
-const fs = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
+import express from 'express';
+import helmet from 'helmet';
+import fs from 'fs';
+import path from 'path';
+import yaml from 'js-yaml';
 
-const { MASTER_TOOL_MAP } = require('./tools');
+import { MASTER_TOOL_MAP } from './tools/index.js';
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const BASE_DATA_DIR = path.resolve(__dirname);
 
@@ -286,7 +292,7 @@ function createServer() {
   return app;
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   const port = Number.parseInt(process.env.PORT, 10) || 3000;
   const app = createServer();
   app.listen(port, () => {
@@ -294,7 +300,7 @@ if (require.main === module) {
   });
 }
 
-module.exports = {
+export {
   createServer,
   loadAgent,
   improvePromptStub,

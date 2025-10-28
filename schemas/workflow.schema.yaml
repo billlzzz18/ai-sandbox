@@ -1,0 +1,101 @@
+# Workflow Schema v1
+# This schema defines the structure for workflow definitions in the agent framework.
+# Version: 1.0.0
+# Compatible with: v1 agents and tools
+# Deprecations: None in v1
+# Feature Flags: parallel_execution (default: false), memory_augmentation (default: true)
+
+$schema: "http://json-schema.org/draft-07/schema#"
+title: Workflow Definition
+description: A workflow for orchestrating agents, tools, and steps in the AI agent framework.
+type: object
+required: [name, version, steps, inputs, outputs]
+properties:
+  name:
+    type: string
+    description: Unique identifier for the workflow
+    minLength: 1
+    pattern: "^[a-zA-Z0-9_-]+$"
+  version:
+    type: string
+    description: Semantic version of this workflow (e.g., 1.0.0)
+    pattern: "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)(?:\\+[0-9a-zA-Z-]+)?)?(?:\\+[0-9a-zA-Z-]+)?)$"
+  description:
+    type: string
+    description: Human-readable description of the workflow
+  feature_flags:
+    type: object
+    description: Optional feature flags for this workflow
+    properties:
+      parallel_execution:
+        type: boolean
+        default: false
+        description: Enable parallel step execution
+      memory_augmentation:
+        type: boolean
+        default: true
+        description: Use memory for state persistence
+    additionalProperties: false
+  inputs:
+    type: object
+    description: Input parameters for the workflow
+    additionalProperties:
+      oneOf:
+        - type: string
+        - type: number
+        - type: boolean
+        - type: array
+          items: { type: string }
+        - type: object
+  steps:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      required: [id, type, agent, tools]
+      properties:
+        id:
+          type: string
+          description: Unique step ID
+          pattern: "^step-[a-zA-Z0-9_-]+$"
+        type:
+          type: string
+          enum: [agent_call, tool_call, conditional, parallel]
+          description: Type of step
+        agent:
+          type: string
+          description: Agent name to invoke (if agent_call)
+        tools:
+          type: array
+          items:
+            type: string
+          description: List of tools to make available
+        condition:
+          type: string
+          description: Condition expression for conditional steps (Jinja2 templated)
+        parallel_substeps:
+          type: array
+          items: { $ref: "#/properties/steps/items" }
+          description: Substeps for parallel execution
+        inputs:
+          type: object
+          description: Step-specific inputs (references workflow inputs or previous outputs)
+        outputs:
+          type: array
+          items:
+            type: string
+          description: Output keys produced by this step
+      additionalProperties: false
+  outputs:
+    type: object
+    description: Final outputs of the workflow
+    additionalProperties: true
+  compat_matrix:
+    type: object
+    description: Compatibility information
+    properties:
+      min_agent_version: { type: string }
+      max_agent_version: { type: string }
+      supported_tools: { type: array, items: { type: string } }
+    additionalProperties: false
+additionalProperties: false

@@ -19,12 +19,13 @@ class TestSelfImprovementAgent:
 
         assert agent_config is not None
         assert agent_config["name"] == "self-improvement-agent"
-        assert "tools" in agent_config
-        assert "rules" in agent_config
-        assert "prompts" in agent_config
+        assert "imports" in agent_config
+        assert "tools" in agent_config["imports"]
+        assert "rules" in agent_config["imports"]
+        assert "prompts" in agent_config["imports"]
 
         # Check for required tools
-        tool_names = [tool.split("/")[-1].replace(".yaml", "") for tool in agent_config["tools"]]
+        tool_names = [tool.split("/")[-1].replace(".yaml", "") for tool in agent_config["imports"]["tools"]]
         required_tools = [
             "error_analysis", "feedback_loop", "parallel_processing",
             "batch_operations", "lifecycle_management"
@@ -107,10 +108,11 @@ class TestSelfImprovementAgent:
         agent_config = load_agent("self_improvement_agent")
 
         assert agent_config is not None
-        assert "rules" in agent_config
+        assert "imports" in agent_config
+        assert "rules" in agent_config["imports"]
 
         # Check that self-improvement rules are included
-        rule_files = agent_config["rules"]
+        rule_files = agent_config["imports"]["rules"]
         self_improvement_rules_found = any(
             "self_improvement_rules" in rule for rule in rule_files
         )

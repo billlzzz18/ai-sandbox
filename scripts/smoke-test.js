@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
-const path = require('path');
-const { loadAgent, improvePromptStub } = require('../server');
+import path from 'path';
+import { loadAgent, improvePromptStub } from '../server.js';
 
 function main() {
   try {
@@ -22,6 +22,6 @@ function main() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }

@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Memory API Schema v1",
+  "description": "Schema for memory operations in the agent framework. Version 1.0.0",
+  "type": "object",
+  "required": ["operation"],
+  "properties": {
+    "operation": {
+      "type": "string",
+      "enum": ["write", "read", "delete", "search", "list_namespaces"],
+      "description": "Type of memory operation"
+    },
+    "version": {
+      "type": "string",
+      "description": "API version (must be '1.0.0' for v1)",
+      "const": "1.0.0"
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Tenant or workflow namespace (required for write/read/delete/search)"
+    },
+    "key": {
+      "type": "string",
+      "description": "Memory key (required for write/read/delete)"
+    },
+    "value": {
+      "type": "object",
+      "description": "Value to write (required for write)",
+      "properties": {
+        "data": { "type": ["string", "number", "boolean", "array", "object"] },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "ttl": { "type": "integer", "description": "Time to live in seconds" },
+            "created_at": { "type": "string", "format": "date-time" },
+            "tags": { "type": "array", "items": { "type": "string" } }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["data"],
+      "additionalProperties": false
+    },
+    "query": {
+      "type": "string",
+      "description": "Search query (required for search)"
+    },
+    "limit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000,
+      "description": "Max results for search/list (default 50)"
+    },
+    "audit_log": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable audit logging for this operation"
+    }
+  },
+  "additionalProperties": false,
+  "if": {
+    "properties": { "operation": { "const": "write" } }
+  },
+  "then": {
+    "required": ["namespace", "key", "value"]
+  },
+  "else": {
+    "if": {
+      "properties": { "operation": { "const": "read" } }
+    },
+    "then": {
+      "required": ["namespace", "key"]
+    },
+    "else": {
+      "if": {
+        "properties": { "operation": { "const": "delete" } }
+      },
+      "then": {
+        "required": ["namespace", "key"]
+      },
+      "else": {
+        "if": {
+          "properties": { "operation": { "const": "search" } }
+        },
+        "then": {
+          "required": ["namespace", "query"]
+        },
+        "else": {
+          "if": {
+            "properties": { "operation": { "const": "list_namespaces" } }
+          },
+          "then": {
+            "required": []
+          }
+        }
+      }
+    }
+  },
+  "compat_matrix": {
+    "min_version": "1.0.0",
+    "max_version": "1.0.0",
+    "deprecations": [],
+    "feature_flags": {
+      "encryption_at_rest": true,
+      "ttl_support": true
+    }
+  }
+}

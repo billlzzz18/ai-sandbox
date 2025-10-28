@@ -1,0 +1,1 @@
+generate a checklist for 'malicious IP' alert

@@ -1,0 +1,160 @@
+
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Real-time Sensor Data API",
+    "version": "1.0.0",
+    "description": "API for ingesting and retrieving real-time sensor data from industrial pumps."
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com/v1",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/sensor-data": {
+      "post": {
+        "summary": "Ingest real-time sensor data",
+        "description": "Receives sensor readings from industrial pumps in real-time.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pumpId": {
+                    "type": "string",
+                    "description": "Unique identifier for the pump."
+                  },
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Timestamp of the sensor reading."
+                  },
+                  "vibration": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Vibration reading (e.g., mm/s)."
+                  },
+                  "temperature": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Temperature reading (e.g., Celsius)."
+                  },
+                  "pressure": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Pressure reading (e.g., Bar)."
+                  },
+                  "current": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Current consumption (e.g., Amperes)."
+                  }
+                },
+                "required": ["pumpId", "timestamp", "vibration", "temperature", "pressure", "current"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sensor data successfully ingested."
+          },
+          "400": {
+            "description": "Invalid input data."
+          }
+        }
+      }
+    },
+    "/sensor-data/{pumpId}": {
+      "get": {
+        "summary": "Retrieve historical sensor data for a pump",
+        "description": "Retrieves a time-series of sensor data for a specific pump.",
+        "parameters": [
+          {
+            "name": "pumpId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Unique identifier for the pump."
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start timestamp for data retrieval."
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "End timestamp for data retrieval."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100
+            },
+            "description": "Maximum number of records to return."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Historical sensor data retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "vibration": {
+                        "type": "number",
+                        "format": "float"
+                      },
+                      "temperature": {
+                        "type": "number",
+                        "format": "float"
+                      },
+                      "pressure": {
+                        "type": "number",
+                        "format": "float"
+                      },
+                      "current": {
+                        "type": "number",
+                        "format": "float"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pump not found or no data available."
+          }
+        }
+      }
+    }
+  }
+}
